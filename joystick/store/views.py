@@ -1,3 +1,19 @@
-from django.shortcuts import render
+from django.views.generic import ListView
 
-# Create your views here.
+from .models import *
+
+
+class CategoryHome(ListView):
+    model = Category
+    template_name = 'store/index.html'
+
+class SubCategoryHome(ListView):
+    model = SubCategory
+    template_name = 'store/index.html'
+    paginate_by = 5
+
+
+class ProductHome(ListView):
+    model = Product
+    template_name = 'store/index.html'
+    paginate_by = 10

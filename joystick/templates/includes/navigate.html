@@ -1,0 +1,13 @@
+<table class="table-content" border=0 cellpadding="0" cellspacing="0">
+<tr>
+<!-- Sidebar слева -->
+  <div class="col-md-2">
+    <div class="list-group">
+      {% for c in page_obj %}
+        <button type="button" class="list-group-item list-group-item-action">{{c.title}}</button>
+      {% endfor %}
+    </div>
+  </div>
+</tr>
+</table>
+<!-- Конец Sidebar'а -->
