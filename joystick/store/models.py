@@ -34,6 +34,8 @@ class Product(models.Model):
     country = models.CharField(max_length=45, null=True, blank=True)
     price = models.IntegerField()
     quantity = models.IntegerField(null=True)
+    time_create = models.DateTimeField(auto_now_add=True, verbose_name='Время создания')
+    brand = models.CharField(max_length=45, null=True, blank=True)
     image0 = models.ImageField(
         blank=True, upload_to='media/images/',
         verbose_name='Главное изображение'
