@@ -107,7 +107,7 @@
                     <div class="product">
                       <div class="product-img">
                         {% load thumbnail %}
-                        {% thumbnail cart.image0 "30x15" upscale=True as im %}
+                        {% thumbnail cart.image0 "600x600" upscale=True as im %}
                           <img src="{{ cart.image0 }}" alt="">
                         {% endthumbnail %}
                         <div class="product-label">
