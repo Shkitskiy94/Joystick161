@@ -37,19 +37,19 @@ class Product(models.Model):
     time_create = models.DateTimeField(auto_now_add=True, verbose_name='Время создания')
     brand = models.CharField(max_length=45, null=True, blank=True)
     image0 = models.ImageField(
-        blank=True, upload_to='media/images/',
+        blank=True, upload_to='images/',
         verbose_name='Главное изображение'
     )
     image1 = models.ImageField(
-        blank=True, upload_to='media/images/',
+        blank=True, upload_to='images/',
         verbose_name='Доп Изображение 1'
     )
     image2 = models.ImageField(
-        blank=True, upload_to='media/images/',
+        blank=True, upload_to='images/',
         verbose_name='Доп Изображение 2'
     )
     image3 = models.ImageField(
-        blank=True, upload_to='media/images/',
+        blank=True, upload_to='images/',
         verbose_name='Доп Изображение 3'
     )
 
