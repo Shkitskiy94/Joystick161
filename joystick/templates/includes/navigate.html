@@ -1,24 +1,3 @@
-<!-- NAVIGATION -->
-<nav id="navigation">
-  <!-- container -->
-  <div class="container">
-    <!-- responsive-nav -->
-    <div id="responsive-nav">
-      <!-- NAV -->
-      <ul class="main-nav nav navbar-nav">
-        <li class="active"><a href="#">Главная страница</a></li>
-          {% for i in category %}
-            <li><a href="#">{{i.title}}</a></li>
-          {% endfor %}
-      </ul>
-      <!-- /NAV -->
-    </div>
-    <!-- /responsive-nav -->
-  </div>
-  <!-- /container -->
-</nav>
-<!-- /NAVIGATION -->
-
 <!-- SECTION -->
 <div class="section">
   <!-- container -->
@@ -86,7 +65,7 @@
           <h3 class="title">Новинки</h3>
           <div class="section-nav">
             <ul class="section-tab-nav tab-nav">
-              {% for sub in subcategory %}
+              {% for sub in category %}
                 <li><a data-toggle="tab" href="#tab1">{{sub.title}}</a></li>
               {% endfor %}
             </ul>
@@ -117,7 +96,7 @@
                       </div>
                       <div class="product-body">
                         <p class="product-category">{{ cart.subCategory }}</p>
-                        <h3 class="product-name"><a href="#">{{ cart.title }}</a></h3>
+                        <h3 class="product-name"><a href="{{ cart.get_absolute_url }}">{{ cart.title }}</a></h3>
                         <h4 class="product-price"> {{ cart.price }} <del class="product-old-price">{{ cart.price }}</del></h4>
                         <div class="product-rating">
                           <i class="fa fa-star"></i>
@@ -165,31 +144,31 @@
             <li>
               <div>
                 <h3>02</h3>
-                <span>Days</span>
+                <span>Дней</span>
               </div>
             </li>
             <li>
               <div>
                 <h3>10</h3>
-                <span>Hours</span>
+                <span>Часов</span>
               </div>
             </li>
             <li>
               <div>
                 <h3>34</h3>
-                <span>Mins</span>
+                <span>Минут</span>
               </div>
             </li>
             <li>
               <div>
                 <h3>60</h3>
-                <span>Secs</span>
+                <span>Секунд</span>
               </div>
             </li>
           </ul>
-          <h2 class="text-uppercase">hot deal this week</h2>
-          <p>New Collection Up to 50% OFF</p>
-          <a class="primary-btn cta-btn" href="#">Shop now</a>
+          <h2 class="text-uppercase">Черная пятница возвращается</h2>
+          <p>Скидки на все товары до 70%</p>
+          <a class="primary-btn cta-btn" href="#">Начни покупать сейчас!</a>
         </div>
       </div>
     </div>

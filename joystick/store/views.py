@@ -18,5 +18,13 @@ class CategoryHome(ListView):
 
 class ProductHome(DetailView):
     model = Product
-    template_name = 'store/index.html'
+    template_name = 'store/product.html'
     context_object_name = 'product'
+    slug_url_kwarg = 'product_slug'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['subcategory'] = SubCategory.objects.all()
+        context['category'] = Category.objects.all()
+        return context
+
