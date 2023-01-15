@@ -12,6 +12,7 @@ class CategoryHome(ListView):
         context = super().get_context_data(**kwargs)
         context['subcategory'] = SubCategory.objects.all()
         context['product'] = Product.objects.all()
+        context['cat_selected'] = 0
         return context
 
 
@@ -21,10 +22,11 @@ class ProductHome(DetailView):
     template_name = 'store/product.html'
     context_object_name = 'product'
     slug_url_kwarg = 'product_slug'
+    allow_empty = False
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['subcategory'] = SubCategory.objects.all()
+        context['subcategory'] = Product.objects.all()
         context['category'] = Category.objects.all()
         return context
 
