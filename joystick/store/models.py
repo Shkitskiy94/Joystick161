@@ -12,6 +12,10 @@ class Category(models.Model):
 
     def __str__(self):
         return self.title
+    
+    def get_absolute_url(self):
+        return reverse("subcategory", kwargs={"category_slug": self.slug})
+
 
 
 class SubCategory(models.Model):
@@ -24,6 +28,9 @@ class SubCategory(models.Model):
 
     def __str__(self):
         return self.title
+    
+    # def get_absolute_url(self):
+    #     return reverse("subcategory", kwargs={"subcategory_slug": self.slug, "category_slug": self.category.slug})
 
 
 class Product(models.Model):

@@ -26,7 +26,7 @@
         <!-- LOGO -->
         <div class="col-md-3">
           <div class="header-logo">
-            <a href="#" class="logo">
+            <a href="{% url 'home' %}" class="logo">
               <img src="{% static 'image/logo.png' %}" alt="">
             </a>
           </div>
@@ -134,15 +134,15 @@
       <!-- NAV -->
       <ul class="main-nav nav navbar-nav">
         {% if cat_selected == 0 %}
-          <li class="active"><h5>Главная страница</h5></li>
+          <li class="selected"><h5>Главная страница</h5></li>
         {% else %}
-          <li><a href="{% url 'category' %}">Главная страница</a></li>
+          <li><a href="{% url 'home' %}">Главная страница</a></li>
         {% endif %}
             {% for i in category %}
               {% if i.pk == cat_selected %}
-              <li class="active"><h5>{{i.title}}</h5></li>
+                <li class="selected"><h5>{{i.title}}</h5></li>
               {% else %}
-                <li><a href="#">{{i.title}}</a></li>
+                <li><a href="{{ i.get_absolute_url }}">{{i.title}}</a></li>
               {% endif %}
             {% endfor %}
       </ul>
@@ -151,5 +151,3 @@
     <!-- /responsive-nav -->
   </div>
   <!-- /container -->
-</nav>
-<!-- /NAVIGATION -->

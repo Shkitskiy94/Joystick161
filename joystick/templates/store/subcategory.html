@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block content %}
+<!-- SECTION -->
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+            <!-- store products -->
+            <div class="row">
+                <!-- /product -->
+                <div class="clearfix visible-lg visible-md"></div>
+                <!-- product -->
+                {% for sub in subcategory  %}
+                    <div class="col-md-4 col-xs-6">
+                        <div class="product">
+                            <div class="product-img">
+                                <img src="#" alt="">
+                            </div>
+                            <div class="product-body">
+                                <p class="product-category">{{sub.category.title}}</p>
+                                <h3 class="product-name"><a href="#">{{sub.title}}</a></h3>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                <!-- /product -->
+                {% endblock  %}
+            </div>
+            <!-- /STORE -->
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+<!-- /SECTION -->

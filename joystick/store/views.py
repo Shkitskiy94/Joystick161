@@ -3,7 +3,7 @@ from django.views.generic import ListView, DetailView
 from .models import *
 
 
-class CategoryHome(ListView):
+class Home(ListView):
     model = Category
     template_name = 'store/index.html'
     context_object_name = 'category'
@@ -16,6 +16,36 @@ class CategoryHome(ListView):
         return context
 
 
+# class CategoryHome(ListView):
+#     model = Category
+#     template_name = 'store/index.html'
+#     context_object_name = 'category'
+#     allow_empty = False
+
+    # def get_queryset(self):
+    #     return Category.objects.filter(category__slug=self.kwargs['subcategory_slug'])
+
+
+class SubCategoryHome(ListView):
+    model = SubCategory
+    template_name = 'store/subcategory.html'
+    context_object_name = 'subcategory'
+    allow_empty = False
+
+    def get_queryset(self):
+        return SubCategory.objects.filter(category__slug=self.kwargs['category_slug'])
+    
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['category'] = Category.objects.all()
+        context['product'] = Product.objects.all()
+        context['cat_selected'] = context['subcategory'][0].category_id
+        return context
+
+
+class StoreHome(ListView):
+    pass
+
 
 class ProductHome(DetailView):
     model = Product
@@ -26,7 +56,6 @@ class ProductHome(DetailView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['subcategory'] = Product.objects.all()
+        context['subcategory'] = Product.objects.filter(subCategory__title=self.kwargs['product_slug'])
         context['category'] = Category.objects.all()
-        return context
-
+        return context  
