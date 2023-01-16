@@ -39,7 +39,7 @@ class SubCategoryHome(ListView):
         context = super().get_context_data(**kwargs)
         context['category'] = Category.objects.all()
         context['product'] = Product.objects.all()
-        context['cat_selected'] = 0
+        context['cat_selected'] = context['subcategory'][0].category_id
         return context
 
 
@@ -56,7 +56,6 @@ class StoreHome(ListView):
         context = super().get_context_data(**kwargs)
         context['category'] = Category.objects.all()
         context['subcategory'] = SubCategory.objects.all()
-        context['cat_selected'] = 0
         return context
 
 
