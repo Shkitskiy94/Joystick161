@@ -19,13 +19,12 @@
                             </div>
                             <div class="product-body">
                                 <p class="product-category">{{sub.category.title}}</p>
-                                <h3 class="product-name"><a href="#">{{sub.title}}</a></h3>
+                                <h3 class="product-name"><a href="{{ sub.get_absolute_url }}">{{sub.title}}</a></h3>
                             </div>
                         </div>
                     </div>
                 {% endfor %}
                 <!-- /product -->
-                {% endblock  %}
             </div>
             <!-- /STORE -->
         </div>
@@ -34,3 +33,4 @@
     <!-- /container -->
 </div>
 <!-- /SECTION -->
+{% endblock  %}
