@@ -64,7 +64,7 @@ class ProductHome(DetailView):
     template_name = 'store/product.html'
     context_object_name = 'product'
     slug_url_kwarg = 'product_slug'
-    allow_empty = False
+    allow_empty = True
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
