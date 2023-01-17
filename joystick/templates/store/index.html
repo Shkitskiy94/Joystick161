@@ -58,40 +58,9 @@
               <div id="tab1" class="tab-pane active">
                 <div class="products-slick" data-nav="#slick-nav-1">
                   <!-- product -->
-                  {% for cart in product %}
-                    <div class="product">
-                      <div class="product-img">
-                        {% load thumbnail %}
-                        {% thumbnail cart.image0 "263" crop="center" upscale=True as im %}
-                          <img src="{{ im.url }}" alt="">
-                        {% endthumbnail %}
-                        <div class="product-label">
-                          <span class="sale">-30%</span>
-                          <span class="new">Новинка</span>
-                        </div>
-                      </div>
-                      <div class="product-body">
-                        <p class="product-category">{{ cart.subCategory }}</p>
-                        <h3 class="product-name"><a href="{{ cart.get_absolute_url }}">{{ cart.title }}</a></h3>
-                        <h4 class="product-price"> {{ cart.price }} <del class="product-old-price">{{ cart.price }}</del></h4>
-                        <div class="product-rating">
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                          <i class="fa fa-star"></i>
-                        </div>
-                        <div class="product-btns">
-                          <button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">добавить в избранное</span></button>
-                          <button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">добавить в сравнение</span></button>
-                          <button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">посмотреть</span></button>
-                        </div>
-                      </div>
-                      <div class="add-to-cart">
-                        <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> добавить в корзину</button>
-                      </div>
-                    </div>
-                  {% endfor %}
+                    {% for cart in product %}
+                      {% include 'store/includes/product_tab.html' %}
+                    {% endfor %}
                   <!-- /product -->
                 </div>
                 <div id="slick-nav-1" class="products-slick-nav"></div>

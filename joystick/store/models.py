@@ -25,6 +25,10 @@ class SubCategory(models.Model):
     )
     title = models.CharField(max_length=30)
     slug = models.SlugField(null=True, blank=True)
+    sub_image = models.ImageField(
+        blank=True, upload_to='subimages/',
+        verbose_name='Изображение подкатегории'
+    )
 
     def __str__(self):
         return self.title
@@ -45,6 +49,7 @@ class Product(models.Model):
     articul = models.CharField(max_length=16, default="00000000")
     country = models.CharField(max_length=45, null=True, blank=True)
     price = models.IntegerField()
+    discount_price = models.IntegerField(default=0)
     quantity = models.IntegerField(null=True)
     time_create = models.DateTimeField(auto_now_add=True, verbose_name='Время создания')
     brand = models.CharField(max_length=45, null=True, blank=True)
@@ -71,6 +76,10 @@ class Product(models.Model):
     
     def get_absolute_url(self):
         return reverse("product", kwargs={"product_slug": self.slug})
+    
+    def sale(self):
+        discount = int(100 - (100 * self.discount_price) / self.price)
+        return discount
 
 
 class Review(models.Model):

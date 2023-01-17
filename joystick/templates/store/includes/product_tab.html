@@ -1,0 +1,39 @@
+<div class="product">
+    <div class="product-img">
+        <img src="{{ cart.image0.url }}" alt="">
+    <div class="product-label">
+        {% if cart.discount_price == 0 %}
+        <span class="new">Новинка</span>
+    </div>
+    </div>
+    <div class="product-body">
+    <p class="product-category">{{ cart.subCategory }}</p>
+    <h3 class="product-name"><a href="{{ cart.get_absolute_url }}">{{ cart.title }}</a></h3>
+    <h4 class="product-price"> {{ cart.price }}</h4>
+    {% else %}
+    <span class="sale">-{{ cart.sale }}%</span>
+    <span class="new">Новинка</span>
+    </div>
+    </div>
+    <div class="product-body">
+    <p class="product-category">{{ cart.subCategory }}</p>
+    <h3 class="product-name"><a href="{{ cart.get_absolute_url }}">{{ cart.title }}</a></h3>
+    <h4 class="product-price"> {{ cart.price }} <del class="product-old-price">{{ cart.discount_price }}</del></h4>
+    {% endif %}
+    <div class="product-rating">
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+    </div>
+    <div class="product-btns">
+        <button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">добавить в избранное</span></button>
+        <button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">добавить в сравнение</span></button>
+        <button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">посмотреть</span></button>
+    </div>
+    </div>
+    <div class="add-to-cart">
+    <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> добавить в корзину</button>
+    </div>
+</div>
