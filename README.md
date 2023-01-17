@@ -30,11 +30,11 @@
 1. Клонируйте репозиторий и перейдите в него в командной строке:
 
 ```
-git clone https://github.com/Banes31/hw05_final.git
+git clone git@github.com:Shkitskiy94/Joystick161.git
 ```
 
 ```
-cd hw05_final
+cd Joystick161
 ```
 
 2. Установите и активируйте виртуальное окружение
