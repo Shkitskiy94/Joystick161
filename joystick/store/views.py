@@ -1,5 +1,6 @@
 from django.views.generic import ListView, DetailView, TemplateView
 
+from cart.forms import CartAddProductForm
 from .models import *
 
 
@@ -39,7 +40,7 @@ class SubCategoryHome(ListView):
         context = super().get_context_data(**kwargs)
         context['category'] = Category.objects.all()
         context['product'] = Product.objects.all()
-        context['cat_selected'] = context['subcategory'][0].category_id
+        # context['cat_selected'] = context['subcategory'][0].category_id
         return context
 
 
@@ -70,4 +71,5 @@ class ProductHome(DetailView):
         context = super().get_context_data(**kwargs)
         context['subcategory'] = Product.objects.filter(subCategory__title=self.kwargs['product_slug'])
         context['category'] = Category.objects.all()
+        context['cart_product_form'] = CartAddProductForm()
         return context  

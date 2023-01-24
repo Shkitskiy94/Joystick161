@@ -96,17 +96,12 @@
 					<p> Брэнд: {{ product.brand }} </p>
 					<p> Время создания: {{ product.time_create }} </p>
 
-					<div class="add-to-cart">
-						<div class="qty-label">
-							Количество
-							<div class="input-number">
-								<input type="number">
-								<span class="qty-up">+</span>
-								<span class="qty-down">-</span>
-							</div>
-						</div>
-						<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i>В корзину</button>
-					</div>
+                        <p class="price">${{ product.price }}</p>
+                        <form action="{% url "cart:cart_add" product.id %}" method="post">
+                            {{ cart_product_form }}
+                            {% csrf_token %}
+                            <input type="submit" value="Add to cart">
+                        </form>
 
 					<ul class="product-btns">
 						<li><a href="#"><i class="fa fa-heart-o"></i> Добавить в избранное</a></li>

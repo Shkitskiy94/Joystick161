@@ -30,7 +30,7 @@ INSTALLED_APPS = [
     'sorl.thumbnail',
     'store',
     'users',
-
+    'cart',
 ]
 
 MIDDLEWARE = [
@@ -44,6 +44,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'joystick.urls'
+CART_SESSION_ID = 'cart'
 
 TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 TEMPLATES = [
