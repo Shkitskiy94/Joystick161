@@ -110,12 +110,12 @@
                         <div><strong>Товары</strong></div>
                         <div><strong>Итого</strong></div>
                     </div>
-                     {% for item in cart %}
+                    {% for item in cart %}
                     {% with product=item.product %}
                     <div class="order-products">
                         <div class="order-col">
-                            <div>{{ product.title }}</div>
-                            <div>{{ product.price }}</div>
+                            <div>{{ item.quantity }} x {{ product.title }}</div>
+                            <div>{{ item.total_price }}</div>
                         </div>
                     </div>
                     {% endwith %}
@@ -127,7 +127,7 @@
                     </div>
                     <div class="order-col">
                         <div><strong>TOTAL</strong></div>
-                        <div><strong class="order-total">{{ item.total_price }}</strong></div>
+                        <div><strong class="order-total">{{ cart.get_total_price }}</strong></div>
                     </div>
 
 

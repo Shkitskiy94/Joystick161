@@ -13,6 +13,7 @@ class Home(ListView):
         context = super().get_context_data(**kwargs)
         context['subcategory'] = SubCategory.objects.all()
         context['product'] = Product.objects.all()
+        context['cart_product_form'] = CartAddProductForm()
         context['cat_selected'] = 0
         return context
 
@@ -57,6 +58,7 @@ class StoreHome(ListView):
         context = super().get_context_data(**kwargs)
         context['category'] = Category.objects.all()
         context['subcategory'] = SubCategory.objects.all()
+        context['cart_product_form'] = CartAddProductForm()
         return context
 
 
