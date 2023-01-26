@@ -15,16 +15,20 @@ def cart_add(request, product_id):
         cart.add(product=product,
                 quantity=cd['quantity'],
                 update_quantity=cd['update'])
-    return redirect('cart:cart_detail')
+    return redirect(request.META.get('HTTP_REFERER','redirect_if_referer_not_found'))
 
 
 def cart_remove(request, product_id):
     cart = Cart(request)
     product = get_object_or_404(Product, id=product_id)
     cart.remove(product)
-    return redirect('cart:cart_detail')
+    return redirect(request.META.get('HTTP_REFERER','redirect_if_referer_not_found'))
 
 
 def cart_detail(request):
     cart = Cart(request)
     return render(request, 'cart/cart_detail.html', {'cart': cart})
+
+def cart_header(request):
+    cart_header = Cart(request)
+    return render(request, 'store/index.html', {'cart_header': cart_header})

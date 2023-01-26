@@ -34,18 +34,22 @@
 					<div class="product-preview">
 						<img src="{{ product.image0.url }}" alt="">
 					</div>
-
+					{% if product.image1 %}
 					<div class="product-preview">
 						<img src="{{ product.image1.url }}" alt="">
 					</div>
-
+					{% endif %}
+					{% if product.image2 %}
 					<div class="product-preview">
 						<img src="{{ product.image2.url }}" alt="">
 					</div>
-
+					{% endif %}
+					
+					{% if product.image3 %}
 					<div class="product-preview">
 						<img src="{{ product.image3.url }}" alt="">
 					</div>
+					{% endif %}
 				</div>
 			</div>
 			<!-- /Product main img -->
@@ -56,18 +60,22 @@
 					<div class="product-preview">
 						<img src="{{ product.image0.url }}" alt="">
 					</div>
-
+					{% if product.image1 %}
 					<div class="product-preview">
 						<img src="{{ product.image1.url }}" alt="">
 					</div>
-
+					{% endif %}
+					{% if product.image2 %}
 					<div class="product-preview">
 						<img src="{{ product.image2.url }}" alt="">
 					</div>
-
+					{% endif %}
+					
+					{% if product.image3 %}
 					<div class="product-preview">
 						<img src="{{ product.image3.url }}" alt="">
 					</div>
+					{% endif %}
 				</div>
 			</div>
 			<!-- /Product thumb imgs -->
@@ -87,8 +95,12 @@
 						<a class="review-link" href="#">10 Рейтинг | Добавить отзыв</a>
 					</div>
 					<div>
-						<h3 class="product-price"> {{ product.price }} <del class="product-old-price"> {{ product.price }} </del></h3>
-						<span class="product-available">В наличии</span>
+						{% if product.discount_price == 0 %}
+							<h3 class="product-price"> {{ product.price }} </h3>
+						{% else %}
+							<h3 class="product-price"> {{ product.discount_price }} <del class="product-old-price"> {{ product.price }} </del></h3>
+						{% endif %}
+							<span class="product-available">В наличии</span>
 					</div>
 					<p> {{ product.detail }} </p>
 					<p> Артикул: {{ product.articul }} </p>
@@ -97,11 +109,14 @@
 					<p> Время создания: {{ product.time_create }} </p>
 
                         <p class="price">${{ product.price }}</p>
+						<div class="add-to-cart">
                         <form action="{% url "cart:cart_add" product.id %}" method="post">
                             {{ cart_product_form }}
                             {% csrf_token %}
-                            <input type="submit" value="Add to cart">
+							<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> Добавить в корзину</button>
+                            {% comment %} <input type="submit" value="Добавить в корзину"> {% endcomment %}
                         </form>
+						</div>
 
 					<ul class="product-btns">
 						<li><a href="#"><i class="fa fa-heart-o"></i> Добавить в избранное</a></li>

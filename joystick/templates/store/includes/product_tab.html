@@ -2,7 +2,7 @@
     <div class="product-img">
         <img src="{{ cart.image0.url }}" alt="">
     <div class="product-label">
-        {% if cart.discount_price == 0 %}
+    {% if cart.discount_price == 0 %}
         <span class="new">Новинка</span>
     </div>
     </div>
@@ -37,9 +37,7 @@
     <form action="{% url "cart:cart_add" cart.id %}" method="post">
     {{ cart_product_form }}
     {% csrf_token %}
-    <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add </button>
-    </form>
-    
+    <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> Добавить </button>
+    </form>   
     </div>
-
 </div>

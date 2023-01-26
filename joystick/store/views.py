@@ -18,6 +18,7 @@ class Home(ListView):
         return context
 
 
+
 # class CategoryHome(ListView):
 #     model = Category
 #     template_name = 'store/index.html'
