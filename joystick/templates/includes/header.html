@@ -64,36 +64,43 @@
 
             <!-- Корзина -->
             <div class="dropdown">
+              {% with total_items=cart|length %}
+              {% if cart|length > 0 %}
               <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
                 <i class="fa fa-shopping-cart"></i>
                 <span>Корзина</span>
-                <div class="qty">3</div>
+                <div class="qty"> {{ total_items }}</div>
               </a>
               <div class="cart-dropdown">
+                {% for item in cart %}
+                {% with product=item.product %}
                 <div class="cart-list">
-                  {% for item in cart %}
-                  {% with product=item.product %}
                   <div class="product-widget">
-                    {% comment %} <div class="product-img">
+                    <div class="product-img">
                       <img src="{{ product.image0.url }}" alt="">
-                    </div> {% endcomment %}
+                    </div> 
                     <div class="product-body">
                       <h3 class="product-name"><a href="{{ product.get_absolute_url }}">{{ product.title }}</a></h3>
                       <h4 class="product-price"><span class="qty">{{ item.quantity }} x</span>{{ item.total_price }}</h4>
                     </div>
-                    <button class="delete"><i class="fa fa-close"></i></button>
+                    <a href="{% url "cart:cart_remove" product.id%}">
+                    <button class="delete"><i class="fa fa-close"></i>
+                    </button>
+                  </a>
                   </div>
-                  {% endwith %}
-                  {% endfor %}
                 </div>
+                {% endwith %}
+                {% endfor %}
                 <div class="cart-summary">
-                  <small>3 Item(s) selected</small>
-                  <h5>SUBTOTAL: $2940.00</h5>
+                  <small>{{ total_items }} выбранно </small>
+                  <h5>Итого: {{ cart.get_total_price }}</h5>
                 </div>
                 <div class="cart-btns">
                   <a href="#">View Cart</a>
-                  <a href="#">Checkout  <i class="fa fa-arrow-circle-right"></i></a>
+                  <a href="{% url "cart:cart_detail" %}">Корзина <i class="fa fa-arrow-circle-right"></i></a>
                 </div>
+                {% endif %}
+                {% endwith %}
               </div>
             </div>
             <!-- /Cart -->
