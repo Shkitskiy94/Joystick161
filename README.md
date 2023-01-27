@@ -18,7 +18,7 @@
  
 :white_check_mark:(сделанно)  Сделать описание проекта.
  
-:heavy_check_mark:(на очереди)  Корзина.
+:white_check_mark:(сделанно)  Корзина.
 
 <details>
 <summary>
