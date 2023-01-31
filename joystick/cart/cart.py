@@ -50,6 +50,7 @@ class Cart(object):
             del self.cart[product_id]
             self.save()
 
+
     def __iter__(self):
         """
         Перебор элементов в корзине и получение продуктов из базы данных.

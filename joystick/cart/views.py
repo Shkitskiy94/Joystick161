@@ -25,10 +25,13 @@ def cart_remove(request, product_id):
     return redirect(request.META.get('HTTP_REFERER','redirect_if_referer_not_found'))
 
 
+def cart_remove_all(request):
+    cart = Cart(request)
+    cart.clear()
+    return redirect(request.META.get('HTTP_REFERER','redirect_if_referer_not_found'))
+
+
 def cart_detail(request):
     cart = Cart(request)
     return render(request, 'cart/cart_detail.html', {'cart': cart})
 
-def cart_header(request):
-    cart_header = Cart(request)
-    return render(request, 'store/index.html', {'cart_header': cart_header})
