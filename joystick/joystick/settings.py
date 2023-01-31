@@ -1,15 +1,11 @@
-
 import os
 from pathlib import Path
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-n&4t!$)@_f9#&pg-h%agod6w3qkw@b8%&32v873cs-dl4)koz#'
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -17,8 +13,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
-# Application definition
+LOGIN_URL = 'users:login'
+LOGIN_REDIRECT_URL = 'store:home'
 
 INSTALLED_APPS = [
     'django.contrib.admin',

@@ -1,7 +1,7 @@
 from django.db import models
-from django.conf import settings
-from users.models import Account
-from django.core.validators import MaxValueValidator, MinValueValidator
+# from django.conf import settings
+# from users.models import Account
+# from django.core.validators import MaxValueValidator, MinValueValidator
 from django.urls import reverse
 
 
@@ -12,10 +12,9 @@ class Category(models.Model):
 
     def __str__(self):
         return self.title
-    
-    def get_absolute_url(self):
-        return reverse("subcategory", kwargs={"category_slug": self.slug})
 
+    def get_absolute_url(self):
+        return reverse("store:subcategory", kwargs={"category_slug": self.slug})
 
 
 class SubCategory(models.Model):
@@ -32,9 +31,9 @@ class SubCategory(models.Model):
 
     def __str__(self):
         return self.title
-    
+
     def get_absolute_url(self):
-        return reverse("store", kwargs={"subCategory_slug": self.slug})
+        return reverse("store:store", kwargs={"subCategory_slug": self.slug})
 
 
 class Product(models.Model):
@@ -51,7 +50,9 @@ class Product(models.Model):
     price = models.IntegerField()
     discount_price = models.IntegerField(default=0)
     quantity = models.IntegerField(null=True)
-    time_create = models.DateTimeField(auto_now_add=True, verbose_name='Время создания')
+    time_create = models.DateTimeField(
+        auto_now_add=True, verbose_name='Время создания'
+        )
     brand = models.CharField(max_length=45, null=True, blank=True)
     image0 = models.ImageField(
         blank=True, upload_to='images/',
@@ -69,54 +70,53 @@ class Product(models.Model):
         null=True, upload_to='images/',
         verbose_name='Доп Изображение 3'
     )
-    
 
     def __str__(self):
         return self.title
-    
+
     def get_absolute_url(self):
-        return reverse("product", kwargs={"product_slug": self.slug})
+        return reverse("store:product", kwargs={"product_slug": self.slug})
     
     def sale(self):
         discount = int(100 - (100 * self.discount_price) / self.price)
         return discount
 
 
-class Review(models.Model):
-    author = models.ForeignKey(
-        on_delete=models.CASCADE,
-        related_name='reviews',
-        to=Account,
-        verbose_name='Автор'
-    )
-    pub_date = models.DateTimeField(
-        auto_now_add=True,
-        verbose_name='Дата публикации'
-    )
-    score = models.IntegerField(
-        validators=[
-            MinValueValidator(settings.MIN_LIMIT_VALUE),
-            MaxValueValidator(settings.MAX_LIMIT_VALUE)
-        ],
-    )
-    text = models.TextField(null=True, blank=True)
-    product = models.ForeignKey(
-        on_delete=models.CASCADE,
-        related_name='product',
-        to='Product',
-        verbose_name='Товар'
-    )
+# class Review(models.Model):
+#     author = models.ForeignKey(
+#         on_delete=models.CASCADE,
+#         related_name='reviews',
+#         to=Account,
+#         verbose_name='Автор'
+#     )
+#     pub_date = models.DateTimeField(
+#         auto_now_add=True,
+#         verbose_name='Дата публикации'
+#     )
+#     score = models.IntegerField(
+#         validators=[
+#             MinValueValidator(settings.MIN_LIMIT_VALUE),
+#             MaxValueValidator(settings.MAX_LIMIT_VALUE)
+#         ],
+#     )
+#     text = models.TextField(null=True, blank=True)
+#     product = models.ForeignKey(
+#         on_delete=models.CASCADE,
+#         related_name='product',
+#         to='Product',
+#         verbose_name='Товар'
+#     )
 
-    class Meta:
-        constraints = [
-            models.UniqueConstraint(
-                fields=['author', 'product'],
-                name='unique_review'
-            )
-        ]
-        ordering = ('pub_date',)
-        verbose_name = 'Комментарий'
-        verbose_name_plural = 'Комментарии'
+#     class Meta:
+#         constraints = [
+#             models.UniqueConstraint(
+#                 fields=['author', 'product'],
+#                 name='unique_review'
+#             )
+#         ]
+#         ordering = ('pub_date',)
+#         verbose_name = 'Комментарий'
+#         verbose_name_plural = 'Комментарии'
 
-    def __str__(self):
-        return self.text[:settings.LIMIT_REVIEW_STR]
+#     def __str__(self):
+#         return self.text[:settings.LIMIT_REVIEW_STR]

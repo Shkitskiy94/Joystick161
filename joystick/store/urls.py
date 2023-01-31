@@ -2,6 +2,8 @@ from django.urls import path
 
 from .views import Home, SubCategoryHome, ProductHome, StoreHome
 
+app_name = 'store'
+
 urlpatterns = [
     path('', Home.as_view(), name='home'),
     path('<slug:category_slug>/', SubCategoryHome.as_view(), name='subcategory'),

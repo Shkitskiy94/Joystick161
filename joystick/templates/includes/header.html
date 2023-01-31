@@ -26,7 +26,7 @@
         <!-- LOGO -->
         <div class="col-md-3">
           <div class="header-logo">
-            <a href="{% url 'home' %}" class="logo">
+            <a href="{% url 'store:home' %}" class="logo">
               <img src="{% static 'image/logo.png' %}" alt="">
             </a>
           </div>
@@ -136,7 +136,7 @@
         {% if cat_selected == 0 %}
           <li class="selected"><h5>Главная страница</h5></li>
         {% else %}
-          <li><a href="{% url 'home' %}">Главная страница</a></li>
+          <li><a href="{% url 'store:home' %}">Главная страница</a></li>
         {% endif %}
             {% for i in category %}
               {% if i.pk == cat_selected %}
