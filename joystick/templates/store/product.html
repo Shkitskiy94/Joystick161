@@ -260,57 +260,66 @@
 								<!-- /Rating -->
 
 								<!-- Reviews -->
+
 								<div class="col-md-6">
 									<div id="reviews">
 										<ul class="reviews">
+											{% for rev in review %}
 											<li>
 												<div class="review-heading">
-													<h5 class="name">{{ review.author }}</h5>
-													<p class="date">27 DEC 2018, 8:0 PM</p>
+													<h5 class="name">{{ rev.author }}</h5>
+													<p class="date">{{rev.pub_date}}</p>
 													<div class="review-rating">
-														<i class="fa fa-star"></i>
-														<i class="fa fa-star"></i>
-														<i class="fa fa-star"></i>
-														<i class="fa fa-star"></i>
-														<i class="fa fa-star-o empty"></i>
+														{% if rev.score == 0 %}
+															<i class="fa fa-star-o empty"></i>
+															<i class="fa fa-star-o empty"></i>
+															<i class="fa fa-star-o empty"></i>
+															<i class="fa fa-star-o empty"></i>
+															<i class="fa fa-star-o empty"></i>
+														{% elif  rev.score == 1 %}
+															<i class="fa fa-star"></i>
+															<i class="fa fa-star-o empty"></i>
+															<i class="fa fa-star-o empty"></i>
+															<i class="fa fa-star-o empty"></i>
+															<i class="fa fa-star-o empty"></i>
+														{% elif  rev.score == 2 %}
+															<i class="fa fa-star"></i>
+															<i class="fa fa-star"></i>
+															<i class="fa fa-star-o empty"></i>
+															<i class="fa fa-star-o empty"></i>
+															<i class="fa fa-star-o empty"></i>
+														{% elif  rev.score == 3 %}
+															<i class="fa fa-star"></i>
+															<i class="fa fa-star"></i>
+															<i class="fa fa-star"></i>
+															<i class="fa fa-star-o empty"></i>
+															<i class="fa fa-star-o empty"></i>
+														{% elif  rev.score == 4 %}
+															<i class="fa fa-star"></i>
+															<i class="fa fa-star"></i>
+															<i class="fa fa-star"></i>
+															<i class="fa fa-star"></i>
+															<i class="fa fa-star-o empty"></i>
+														{% elif  rev.score == 4 %}
+															<i class="fa fa-star"></i>
+															<i class="fa fa-star"></i>
+															<i class="fa fa-star"></i>
+															<i class="fa fa-star"></i>
+															<i class="fa fa-star-o empty"></i>
+														{% elif  rev.score == 5 %}
+															<i class="fa fa-star"></i>
+															<i class="fa fa-star"></i>
+															<i class="fa fa-star"></i>
+															<i class="fa fa-star"></i>
+															<i class="fa fa-star"></i>
+														{% endif %}
 													</div>
 												</div>
 												<div class="review-body">
-													<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
+													<p>{{ rev.text }}</p>
 												</div>
 											</li>
-											<li>
-												<div class="review-heading">
-													<h5 class="name">John</h5>
-													<p class="date">27 DEC 2018, 8:0 PM</p>
-													<div class="review-rating">
-														<i class="fa fa-star"></i>
-														<i class="fa fa-star"></i>
-														<i class="fa fa-star"></i>
-														<i class="fa fa-star"></i>
-														<i class="fa fa-star-o empty"></i>
-													</div>
-												</div>
-												<div class="review-body">
-													<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
-												</div>
-											</li>
-											<li>
-												<div class="review-heading">
-													<h5 class="name">John</h5>
-													<p class="date">27 DEC 2018, 8:0 PM</p>
-													<div class="review-rating">
-														<i class="fa fa-star"></i>
-														<i class="fa fa-star"></i>
-														<i class="fa fa-star"></i>
-														<i class="fa fa-star"></i>
-														<i class="fa fa-star-o empty"></i>
-													</div>
-												</div>
-												<div class="review-body">
-													<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
-												</div>
-											</li>
+											{% endfor %}
 										</ul>
 										<ul class="reviews-pagination">
 											<li class="active">1</li>

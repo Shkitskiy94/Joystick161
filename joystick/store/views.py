@@ -64,5 +64,5 @@ class ProductHome(DetailView):
         context['subcategory'] = Product.objects.filter(subCategory__title=self.kwargs['product_slug'])
         context['category'] = Category.objects.all()
         context['cart_product_form'] = CartAddProductForm()
-        context['review'] = Review.objects.filter(product=self.object.id)
+        context['review'] = Review.objects.filter(product__slug=self.kwargs['product_slug'])
         return context  
