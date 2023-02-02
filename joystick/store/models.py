@@ -1,8 +1,10 @@
+from django.conf import settings
+from django.contrib.auth import get_user_model
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
-# from django.conf import settings
-# from users.models import Account
-# from django.core.validators import MaxValueValidator, MinValueValidator
 from django.urls import reverse
+
+User = get_user_model()
 
 
 class Category(models.Model):
@@ -82,41 +84,41 @@ class Product(models.Model):
         return discount
 
 
-# class Review(models.Model):
-#     author = models.ForeignKey(
-#         on_delete=models.CASCADE,
-#         related_name='reviews',
-#         to=Account,
-#         verbose_name='Автор'
-#     )
-#     pub_date = models.DateTimeField(
-#         auto_now_add=True,
-#         verbose_name='Дата публикации'
-#     )
-#     score = models.IntegerField(
-#         validators=[
-#             MinValueValidator(settings.MIN_LIMIT_VALUE),
-#             MaxValueValidator(settings.MAX_LIMIT_VALUE)
-#         ],
-#     )
-#     text = models.TextField(null=True, blank=True)
-#     product = models.ForeignKey(
-#         on_delete=models.CASCADE,
-#         related_name='product',
-#         to='Product',
-#         verbose_name='Товар'
-#     )
+class Review(models.Model):
+    author = models.ForeignKey(
+        on_delete=models.CASCADE,
+        related_name='reviews',
+        to= User,
+        verbose_name='Автор'
+    )
+    pub_date = models.DateTimeField(
+        auto_now_add=True,
+        verbose_name='Дата публикации'
+    )
+    score = models.IntegerField(
+        validators=[
+            MinValueValidator(settings.MIN_LIMIT_VALUE),
+            MaxValueValidator(settings.MAX_LIMIT_VALUE)
+        ],
+    )
+    text = models.TextField(null=True, blank=True)
+    product = models.ForeignKey(
+        on_delete=models.CASCADE,
+        related_name='product',
+        to='Product',
+        verbose_name='Товар'
+    )
 
-#     class Meta:
-#         constraints = [
-#             models.UniqueConstraint(
-#                 fields=['author', 'product'],
-#                 name='unique_review'
-#             )
-#         ]
-#         ordering = ('pub_date',)
-#         verbose_name = 'Комментарий'
-#         verbose_name_plural = 'Комментарии'
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=['author', 'product'],
+                name='unique_review'
+            )
+        ]
+        ordering = ('pub_date',)
+        verbose_name = 'Комментарий'
+        verbose_name_plural = 'Комментарии'
 
-#     def __str__(self):
-#         return self.text[:settings.LIMIT_REVIEW_STR]
+    def __str__(self):
+        return self.text[:settings.LIMIT_REVIEW_STR]

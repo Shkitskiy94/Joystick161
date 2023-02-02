@@ -11,7 +11,20 @@
       </ul>
       <ul class="header-links pull-right">
         <li><a href="#"><i class="fa fa-dollar"></i> RU</a></li>
-        <li><a href="#"><i class="fa fa-user-o"></i> Профиль</a></li>
+        {% if user.is_authenticated %}
+        <li class="nav-item"> 
+          <a class="nav-link link-light {% if view_name == 'users:logout' %}active{% endif %}" href="{% url 'users:logout' %}">Выйти</a>
+        </li>
+        <li><a href="#"><i class="fa fa-user-o"></i>Пользователь: {{ user.username }}</a></li>
+      {% else %}
+        <li class="nav-item"> 
+          <a class="nav-link link-light {% if view_name == 'users:login' %}active{% endif %}" href="{% url 'users:login' %}">Войти</a>
+        </li>
+        <li class="nav-item"> 
+          <a class="nav-link link-light {% if view_name == 'users:signup' %}active{% endif %}" href="{% url 'users:signup' %}">Регистрация</a>
+        </li>
+      {% endif %}
+
       </ul>
     </div>
   </div>
@@ -56,7 +69,7 @@
             <div>
               <a href="#">
                 <i class="fa fa-heart-o"></i>
-                <span>Ваш аккаунт</span>
+                <span>Избранное</span>
                 <div class="qty">2</div>
               </a>
             </div>

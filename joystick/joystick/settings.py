@@ -15,6 +15,7 @@ ALLOWED_HOSTS = []
 
 LOGIN_URL = 'users:login'
 LOGIN_REDIRECT_URL = 'store:home'
+LOGOUT_REDIRECT_URL = 'store:home'
 
 INSTALLED_APPS = [
     'django.contrib.admin',

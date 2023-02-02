@@ -18,17 +18,6 @@ class Home(ListView):
         return context
 
 
-
-# class CategoryHome(ListView):
-#     model = Category
-#     template_name = 'store/index.html'
-#     context_object_name = 'category'
-#     allow_empty = False
-
-    # def get_queryset(self):
-    #     return Category.objects.filter(category__slug=self.kwargs['subcategory_slug'])
-
-
 class SubCategoryHome(ListView):
     model = SubCategory
     template_name = 'store/subcategory.html'
@@ -75,4 +64,5 @@ class ProductHome(DetailView):
         context['subcategory'] = Product.objects.filter(subCategory__title=self.kwargs['product_slug'])
         context['category'] = Category.objects.all()
         context['cart_product_form'] = CartAddProductForm()
+        context['review'] = Review.objects.filter(product=self.object.id)
         return context  
