@@ -333,12 +333,17 @@
 								<!-- /Reviews -->
 
 								<!-- Review Form -->
+								<form method="post">{% csrf_token %}
+									{{ form }}
+									<input type="submit" value="Send message">
+								</form>
+								{% comment %} {% if user.is_authenticated %}
+								{% for field in form %}
 								<div class="col-md-3">
 									<div id="review-form">
 										<form class="review-form">
-											<input class="input" type="text" placeholder="Your Name">
-											<input class="input" type="email" placeholder="Your Email">
-											<textarea class="input" placeholder="Your Review"></textarea>
+											<p>Имя пользователя:   {{user.username}}</p>
+											<textarea class="input" placeholder="{{ field.help_text }}"></textarea>
 											<div class="input-rating">
 												<span>Your Rating: </span>
 												<div class="stars">
@@ -353,6 +358,8 @@
 										</form>
 									</div>
 								</div>
+								{% endfor %}
+								{% endif %} {% endcomment %}
 								<!-- /Review Form -->
 							</div>
 						</div>

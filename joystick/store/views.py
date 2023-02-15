@@ -1,7 +1,12 @@
-from django.views.generic import ListView, DetailView, TemplateView
-
+from django.views.generic import ListView, DetailView, CreateView
+# from django.views.generic.edit import FormMixin
 from cart.forms import CartAddProductForm
 from .models import *
+from .form import ReviewForm
+from django.shortcuts import redirect
+from django.contrib.auth import login
+from django.urls import reverse_lazy
+from django.http import HttpResponseRedirect
 
 
 class Home(ListView):
@@ -52,8 +57,9 @@ class StoreHome(ListView):
         return context
 
 
-class ProductHome(DetailView):
+class ProductHome(DetailView, CreateView):
     model = Product
+    form_class = ReviewForm
     template_name = 'store/product.html'
     context_object_name = 'product'
     slug_url_kwarg = 'product_slug'
@@ -66,3 +72,16 @@ class ProductHome(DetailView):
         context['cart_product_form'] = CartAddProductForm()
         context['review'] = Review.objects.filter(product__slug=self.kwargs['product_slug'])
         return context  
+    
+
+    # def form_valid(self, form):
+    #     if form.is_valid():
+    #         comment = form.save(commit=False)
+    #         comment.author = self.request.user
+    #         comment.product = self.request.product
+    #         comment.save()
+
+    def form_valid(self, form):
+        review = form.save(commit=False)
+        review.save()
+        return HttpResponseRedirect(reverse('store:home'))
