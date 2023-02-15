@@ -7,6 +7,7 @@ from django.shortcuts import redirect
 from django.contrib.auth import login
 from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
+from django.shortcuts import get_object_or_404
 
 
 class Home(ListView):
@@ -58,12 +59,15 @@ class StoreHome(ListView):
 
 
 class ProductHome(DetailView, CreateView):
+
     model = Product
     form_class = ReviewForm
     template_name = 'store/product.html'
     context_object_name = 'product'
     slug_url_kwarg = 'product_slug'
+    pk_url_kwarg = 'pk'
     allow_empty = True
+
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -83,6 +87,6 @@ class ProductHome(DetailView, CreateView):
     def form_valid(self, form):
         review = form.save(commit=False)
         review.author = self.request.user
-        review.product = self.product
+        review.product = get_object_or_404(Product, pk=self.kwargs['product_slug'])
         review.save()
-        return HttpResponseRedirect(reverse('store:home'))
+        return HttpResponseRedirect(reverse("store:product", kwargs={"product_slug": self.kwargs['product_slug']}))
