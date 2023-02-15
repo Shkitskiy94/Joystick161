@@ -71,8 +71,7 @@ class ProductHome(DetailView, CreateView):
         context['category'] = Category.objects.all()
         context['cart_product_form'] = CartAddProductForm()
         context['review'] = Review.objects.filter(product__slug=self.kwargs['product_slug'])
-        return context  
-    
+        return context
 
     # def form_valid(self, form):
     #     if form.is_valid():
@@ -83,5 +82,7 @@ class ProductHome(DetailView, CreateView):
 
     def form_valid(self, form):
         review = form.save(commit=False)
+        review.author = self.request.user
+        review.product = self.product
         review.save()
         return HttpResponseRedirect(reverse('store:home'))

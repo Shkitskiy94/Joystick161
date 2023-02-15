@@ -114,7 +114,6 @@
                             {{ cart_product_form }}
                             {% csrf_token %}
 							<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> Добавить в корзину</button>
-                            {% comment %} <input type="submit" value="Добавить в корзину"> {% endcomment %}
                         </form>
 						</div>
 
@@ -333,7 +332,8 @@
 								<!-- /Reviews -->
 
 								<!-- Review Form -->
-								<form method="post">{% csrf_token %}
+								<form action="{% url "store:product" product.id %}" method="post">
+									{% csrf_token %}
 									{{ form }}
 									<input type="submit" value="Send message">
 								</form>

@@ -9,7 +9,7 @@ User = get_user_model
 class ReviewForm(forms.ModelForm):
     class Meta:
         model = Review
-        fields = ('text', 'score', 'author', 'product')
+        fields = ('text', 'score',)
         labels = {
             'text': 'Текст отзыва',
             'score': 'Оценка',
