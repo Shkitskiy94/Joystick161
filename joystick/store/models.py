@@ -78,7 +78,7 @@ class Product(models.Model):
 
     def get_absolute_url(self):
         return reverse("store:product", kwargs={"product_slug": self.slug})
-    
+
     def sale(self):
         discount = int(100 - (100 * self.discount_price) / self.price)
         return discount
@@ -88,7 +88,7 @@ class Review(models.Model):
     author = models.ForeignKey(
         on_delete=models.CASCADE,
         related_name='reviews',
-        to= User,
+        to=User,
         verbose_name='Автор',
     )
     pub_date = models.DateTimeField(

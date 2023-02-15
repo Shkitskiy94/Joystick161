@@ -1,20 +1,16 @@
-from django.views.generic import ListView, DetailView, CreateView
-# from django.views.generic.edit import FormMixin
 from cart.forms import CartAddProductForm
-from .models import *
+from django.shortcuts import get_object_or_404, redirect
+from django.views.generic import CreateView, DetailView, ListView
+
 from .form import ReviewForm
-from django.shortcuts import redirect
-from django.contrib.auth import login
-from django.urls import reverse_lazy
-from django.http import HttpResponseRedirect
-from django.shortcuts import get_object_or_404
+from .models import *
 
 
 class Home(ListView):
     model = Category
     template_name = 'store/index.html'
     context_object_name = 'category'
-    
+
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         context['subcategory'] = SubCategory.objects.all()
@@ -32,7 +28,7 @@ class SubCategoryHome(ListView):
 
     def get_queryset(self):
         return SubCategory.objects.filter(category__slug=self.kwargs['category_slug'])
-    
+
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         context['category'] = Category.objects.all()
@@ -59,34 +55,26 @@ class StoreHome(ListView):
 
 
 class ProductHome(DetailView, CreateView):
-
     model = Product
     form_class = ReviewForm
     template_name = 'store/product.html'
     context_object_name = 'product'
     slug_url_kwarg = 'product_slug'
-    pk_url_kwarg = 'pk'
     allow_empty = True
 
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['subcategory'] = Product.objects.filter(subCategory__title=self.kwargs['product_slug'])
+        context['subcategory'] = Product.objects.filter(
+            subCategory__title=self.kwargs['product_slug'])
         context['category'] = Category.objects.all()
         context['cart_product_form'] = CartAddProductForm()
         context['review'] = Review.objects.filter(product__slug=self.kwargs['product_slug'])
         return context
-
-    # def form_valid(self, form):
-    #     if form.is_valid():
-    #         comment = form.save(commit=False)
-    #         comment.author = self.request.user
-    #         comment.product = self.request.product
-    #         comment.save()
 
     def form_valid(self, form):
         review = form.save(commit=False)
         review.author = self.request.user
         review.product = get_object_or_404(Product, pk=self.kwargs['product_slug'])
         review.save()
-        return HttpResponseRedirect(reverse("store:product", kwargs={"product_slug": self.kwargs['product_slug']}))
+        return redirect(self.request.META.get('HTTP_REFERER','redirect_if_referer_not_found'))
