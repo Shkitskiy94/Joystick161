@@ -1,6 +1,7 @@
 from cart.forms import CartAddProductForm
 from django.shortcuts import get_object_or_404, redirect
 from django.views.generic import CreateView, DetailView, ListView
+from django.db.models import Avg
 
 from .form import ReviewForm
 from .models import *
@@ -70,6 +71,9 @@ class ProductHome(DetailView, CreateView):
         context['category'] = Category.objects.all()
         context['cart_product_form'] = CartAddProductForm()
         context['review'] = Review.objects.filter(product__slug=self.kwargs['product_slug'])
+        context['avg_rating'] = Review.objects.filter(
+            product__slug=self.kwargs['product_slug']
+            ).aggregate(res=Avg('score')).get('res')
         return context
 
     def form_valid(self, form):
