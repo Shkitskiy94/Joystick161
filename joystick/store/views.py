@@ -1,7 +1,7 @@
 from cart.forms import CartAddProductForm
 from django.shortcuts import get_object_or_404, redirect
 from django.views.generic import CreateView, DetailView, ListView
-from django.db.models import Avg
+from django.db.models import Avg, Q
 
 from .form import ReviewForm
 from .models import *
@@ -82,3 +82,16 @@ class ProductHome(DetailView, CreateView):
         review.product = get_object_or_404(Product, pk=self.kwargs['product_slug'])
         review.save()
         return redirect(self.request.META.get('HTTP_REFERER','redirect_if_referer_not_found'))
+
+
+class SearchHome(ListView):
+    model = Product
+    template_name = 'store/search.html'
+    context_object_name = 'store'
+
+    def get_queryset(self):
+        query = self.request.GET.get('q')
+        search_list = Product.objects.filter(
+            Q(title__icontains=query) | Q(subCategory__title__icontains=query)
+        )
+        return search_list
