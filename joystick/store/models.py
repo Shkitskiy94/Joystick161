@@ -61,15 +61,15 @@ class Product(models.Model):
         verbose_name='Главное изображение'
     )
     image1 = models.ImageField(
-        null=True, upload_to='images/',
+        blank=True, null=True, upload_to='images/',
         verbose_name='Доп Изображение 1'
     )
     image2 = models.ImageField(
-        null=True, upload_to='images/',
+        blank=True, null=True, upload_to='images/',
         verbose_name='Доп Изображение 2'
     )
     image3 = models.ImageField(
-        null=True, upload_to='images/',
+        blank=True, null=True, upload_to='images/',
         verbose_name='Доп Изображение 3'
     )
 

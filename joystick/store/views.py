@@ -1,7 +1,7 @@
 from cart.forms import CartAddProductForm
 from django.shortcuts import get_object_or_404, redirect
 from django.views.generic import CreateView, DetailView, ListView
-from django.db.models import Avg, Q
+from django.db.models import Avg, Q, F, FloatField, ExpressionWrapper
 
 from .form import ReviewForm
 from .models import *
@@ -18,6 +18,10 @@ class Home(ListView):
         context['product'] = Product.objects.all()
         context['cart_product_form'] = CartAddProductForm()
         context['cat_selected'] = 0
+        context['top_discount'] = Product.objects.filter(
+            discount_price__gt=0).annotate(discount_percent=ExpressionWrapper(
+            100 - (F('discount_price') * 100 / F('price')),
+            output_field=FloatField())).order_by('-discount_percent')[:10]
         return context
 
 
@@ -34,7 +38,7 @@ class SubCategoryHome(ListView):
         context = super().get_context_data(**kwargs)
         context['category'] = Category.objects.all()
         context['product'] = Product.objects.all()
-        # context['cat_selected'] = context['subcategory'][0].category_id
+        context['cat_selected'] = context['subcategory'][0].category_id
         return context
 
 
