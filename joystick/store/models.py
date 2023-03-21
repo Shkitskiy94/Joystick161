@@ -1,6 +1,6 @@
 from django.conf import settings
 from django.contrib.auth import get_user_model
-from django.core.validators import MaxValueValidator, MinValueValidator
+from django.core.validators import MaxValueValidator, MinValueValidator, RegexValidator
 from django.db import models
 from django.urls import reverse
 
@@ -72,6 +72,11 @@ class Product(models.Model):
         blank=True, null=True, upload_to='images/',
         verbose_name='Доп Изображение 3'
     )
+    tag = models.ManyToManyField(
+        related_name='tags',
+        to='ShopTag',
+        verbose_name='тэг'
+    )
 
     def __str__(self):
         return self.title
@@ -122,3 +127,23 @@ class Review(models.Model):
 
     def __str__(self):
         return self.text[:settings.LIMIT_REVIEW_STR]
+    
+
+class ShopTag(models.Model):
+    name = models.CharField(
+        max_length=50,
+        verbose_name='название тега',
+        validators=[
+            RegexValidator(
+                regex='^[\w.@+-]+\Z',
+                message='Только буквы, цифры и @/./+/-/_'
+            )
+        ]
+    )
+    slug = models.SlugField(
+        unique=True,
+        verbose_name='Адрес(url)'
+        )
+    
+    def __str__(self):
+        return self.name

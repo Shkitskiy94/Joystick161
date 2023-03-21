@@ -56,6 +56,7 @@ class StoreHome(ListView):
         context['category'] = Category.objects.all()
         context['subcategory'] = SubCategory.objects.all()
         context['cart_product_form'] = CartAddProductForm()
+        context['tags'] = ShopTag.objects.all()
         return context
 
 
